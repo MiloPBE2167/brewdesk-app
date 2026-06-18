@@ -32,3 +32,18 @@ export async function signup(formData: FormData) {
 
   redirect('/login?message=Check+your+email+to+confirm+your+account')
 }
+
+export async function magicLink(formData: FormData) {
+  const supabase = await createClient()
+
+  const { error } = await supabase.auth.signInWithOtp({
+    email: formData.get('email') as string,
+    options: { shouldCreateUser: true },
+  })
+
+  if (error) {
+    redirect('/login?error=' + encodeURIComponent(error.message))
+  }
+
+  redirect('/login?message=Check+your+email+for+the+magic+link')
+}

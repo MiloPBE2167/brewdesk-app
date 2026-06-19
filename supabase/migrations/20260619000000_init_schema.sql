@@ -1,6 +1,5 @@
 -- Migration: init schema (Beta v1 — 3 tables)
 -- Phase 1 Foundation, Fri 19/6. Source of truth = this file (see brewdesk-docs/05-tech-spec.md §Schema).
--- RLS policies are intentionally deferred to Week 2 (22-28/6) — see 20260622_rls.sql when created.
 
 -- profiles: extends auth.users with app-level display data
 create table public.profiles (
@@ -9,7 +8,7 @@ create table public.profiles (
   created_at timestamptz default now()
 );
 
--- cafes: manually entered (~50 quán), admin-only writes via service role
+-- cafes: manually entered (~50 quán), admin-only writes via service roles
 create table public.cafes (
   id uuid primary key default gen_random_uuid(),
   name text not null,
